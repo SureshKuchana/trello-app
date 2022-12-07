@@ -41,10 +41,6 @@ jobs:
       name: sureshkuchana.github.io/trello-app
       url: https://sureshkuchana.github.io/trello-app/
     steps:
-      - uses: actions/checkout@v2
-        with:
-          token: ${{ env.GITHUB_TOKEN }}
-
       - uses: actions/setup-node@v2
         with:
           node-version: '16'
