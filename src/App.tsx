@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import './App.css';
+import AddNewItem from './components/AddNewItem';
 import { Card } from './components/Card';
 import Column from './components/Column';
 
@@ -27,6 +29,7 @@ function App() {
       <Column text="Done">
         <Card text="Koochana" />
       </Column>
+      <AddNewItem toggleButtonText="+Add another list" onAdd={console.log} />
     </div>
   );
 }

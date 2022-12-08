@@ -30,8 +30,8 @@ const Column = ({ text, children }: ColumnProps) => {
       <AddNewItem
         // eslint-disable-next-line @typescript-eslint/no-empty-function
         onAdd={() => {}}
-        dark={false}
-        toggleButtonText={'Add New Item'}
+        dark={true}
+        toggleButtonText="+ Add another task"
       />
     </div>
   );
