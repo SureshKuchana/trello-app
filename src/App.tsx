@@ -1,10 +1,14 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import './App.css';
 import AddNewItem from './components/AddNewItem';
-import { Card } from './components/Card';
 import Column from './components/Column';
+import { useAppState } from './context/AppContext';
 
-function App() {
+export function App() {
+  const { state } = useAppState();
+  if (Object.keys(state).length === 0) {
+    return <p>no tasks currently</p>;
+  }
+
   return (
     <div
       style={{
@@ -17,21 +21,10 @@ function App() {
         width: '100%',
       }}
     >
-      <Column text="Todo">
-        <Card text="Suresh" />
-      </Column>
-      <Column text="In-Progress">
-        <Card text="Koochana" />
-      </Column>
-      <Column text="In-QA">
-        <Card text="Koochana" />
-      </Column>
-      <Column text="Done">
-        <Card text="Koochana" />
-      </Column>
+      {state.lists.map((list, i) => {
+        return <Column text={list.text} key={list.id} index={i} />;
+      })}
       <AddNewItem toggleButtonText="+Add another list" onAdd={console.log} />
     </div>
   );
 }
-
-export default App;

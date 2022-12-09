@@ -1,11 +1,14 @@
+import { useAppState } from './../context/AppContext';
 import AddNewItem from './AddNewItem';
+import { Card } from './Card';
 
 type ColumnProps = {
   text: string;
-  children?: React.ReactNode;
+  index: number;
 };
 
-const Column = ({ text, children }: ColumnProps) => {
+const Column = ({ text, index }: ColumnProps) => {
+  const { state } = useAppState();
   return (
     <div
       style={{
@@ -26,10 +29,12 @@ const Column = ({ text, children }: ColumnProps) => {
       >
         {text}
       </div>
-      {children}
+      {state.lists[index].tasks.map((task) => (
+        <Card key={task.id} text={task.text} />
+      ))}
       <AddNewItem
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        onAdd={() => {}}
+        // eslint-disable-next-line no-console
+        onAdd={console.log}
         dark={true}
         toggleButtonText="+ Add another task"
       />
