@@ -1,14 +1,16 @@
+import { addTask } from './../context/actions';
 import { useAppState } from './../context/AppContext';
 import AddNewItem from './AddNewItem';
 import { Card } from './Card';
 
 type ColumnProps = {
   text: string;
-  index: number;
+  id: string;
 };
 
-const Column = ({ text, index }: ColumnProps) => {
-  const { state } = useAppState();
+const Column = ({ text, id }: ColumnProps) => {
+  const { getTasksByListId, dispatch } = useAppState();
+  const tasks = getTasksByListId(id);
   return (
     <div
       style={{
@@ -29,12 +31,13 @@ const Column = ({ text, index }: ColumnProps) => {
       >
         {text}
       </div>
-      {state.lists[index].tasks.map((task) => (
-        <Card key={task.id} text={task.text} />
+      {tasks.map((task) => (
+        <Card key={task.id} text={task.text} id={task.id} />
       ))}
       <AddNewItem
-        // eslint-disable-next-line no-console
-        onAdd={console.log}
+        onAdd={(text) => {
+          dispatch(addTask(text, id));
+        }}
         dark={true}
         toggleButtonText="+ Add another task"
       />

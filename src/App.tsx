@@ -1,11 +1,12 @@
 import './App.css';
 import AddNewItem from './components/AddNewItem';
 import Column from './components/Column';
+import { addList } from './context/actions';
 import { useAppState } from './context/AppContext';
 
 export function App() {
-  const { state } = useAppState();
-  if (Object.keys(state).length === 0) {
+  const { lists, dispatch } = useAppState();
+  if (Object.keys(lists).length === 0) {
     return <p>no tasks currently</p>;
   }
 
@@ -21,10 +22,15 @@ export function App() {
         width: '100%',
       }}
     >
-      {state.lists.map((list, i) => {
-        return <Column text={list.text} key={list.id} index={i} />;
+      {lists.map((list) => {
+        return <Column text={list.text} key={list.id} id={list.id} />;
       })}
-      <AddNewItem toggleButtonText="+Add another list" onAdd={console.log} />
+      <AddNewItem
+        toggleButtonText="+Add another list"
+        onAdd={(text) => {
+          dispatch(addList(text));
+        }}
+      />
     </div>
   );
 }
